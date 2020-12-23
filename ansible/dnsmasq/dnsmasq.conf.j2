@@ -1,0 +1,18 @@
+# Configuration file for dnsmasq.
+#
+# Format is one option per line, legal options are the same
+# as the long options legal on the command line. See
+# "/usr/sbin/dnsmasq --help" or "man 8 dnsmasq" for details.
+
+port=53
+domain-needed
+bogus-priv
+listen-address=127.0.0.1,{{ ansible_default_ipv4.address }}
+expand-hosts
+domain={{ domain }}
+cache-size=1000
+
+
+# Include all files in /etc/dnsmasq.d except RPM backup files
+conf-dir=/etc/dnsmasq.d,.rpmnew,.rpmsave,.rpmorig
+

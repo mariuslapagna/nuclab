@@ -1,0 +1,40 @@
+---
+- name: Install dnsmasq
+  hosts: nuclab.fritz.box
+  become: true
+  vars_files:
+    - network_vars.yml
+
+  tasks:
+  - name: Install dnsmasq
+    yum:
+      name: dnsmasq
+      state: present
+
+  - name: Start dnsmasq
+    service:
+      name: dnsmasq
+      state: started
+      enabled: yes
+  
+  - template:
+      dest: /etc/resolv.conf 
+      src: resolv.conf.j2
+    notify: Restart dnsmasq
+
+  - template:
+      dest: /etc/dnsmasq.conf 
+      src: dnsmasq.conf.j2
+    notify: Restart dnsmasq
+  
+  - template:
+      dest: /etc/hosts 
+      src: hosts.j2
+    notify: Restart dnsmasq
+
+  handlers:
+    - name: Restart dnsmasq
+      service:
+        name: dnsmasq
+        state: restarted
+  

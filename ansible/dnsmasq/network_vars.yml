@@ -1,0 +1,7 @@
+domain: 'nuclab.local'
+searchdomains:
+  - 'fritz.box'
+  - 'nuclab.local'
+nameservers:
+  - '10.10.1.1'
+  - 'fd00::2e3a:fdff:fe4d:e95a'
