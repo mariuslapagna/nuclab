@@ -1,0 +1,5 @@
+---
+- hosts: nuclab.fritz.box
+  roles:
+    - dnsmasq
+    
