@@ -81,7 +81,7 @@ if [ "`md5sum /etc/sudoers`" == "$SUDOERS_CHECKSUM" ]
     sed -i '/^%wheel\tALL=(ALL)\tALL$/s/^/# /' /etc/sudoers 
     echo "...done." 
   else
-    echo "/etc/sudoers is not the expected $SUDOERS_CHECKSUM, exiting." 
+    echo "/etc/sudoers checksum is not the expected $SUDOERS_CHECKSUM, exiting." 
     exit 1
 fi 
 
