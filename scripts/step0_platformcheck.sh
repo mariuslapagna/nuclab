@@ -56,7 +56,7 @@ fi
 echo "Setting sudoers for the wheel group, if sudoers is unchanged" 
 
 # This is calculated from sudo-1.8.29-6.el8.x86_64.rpm
-SUDOERS_CHECKSUM="1b134d95a4618029ff962a63b021e1ca"
+SUDOERS_CHECKSUM="1fc6b399ca68ac41084c3f460a1a684f  /etc/sudoers"
 
 if [ `md5sum /etc/sudoers` == "$SUDOERS_CHECKSUM" ] 
   then 
