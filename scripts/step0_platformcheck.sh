@@ -27,6 +27,7 @@ if ! `subscription-manager status >/dev/null 2>&1`
         echo "'subscription-manager register --auto-attach' didn't work out, please check."
 	echo "exiting."
 	exit 1
+    fi
 fi
 
 #######################################################################
