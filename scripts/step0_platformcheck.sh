@@ -56,12 +56,14 @@ fi
 echo "Setting sudoers for the wheel group, if sudoers is unchanged" 
 
 # This is calculated from sudo-1.8.29-6.el8.x86_64.rpm
-SUDOERS_CHECKSUM="1fc6b399ca68ac41084c3f460a1a684f  /etc/sudoers"
+SUDOERS_CHECKSUM="1b134d95a4618029ff962a63b021e1ca  /etc/sudoers"
 
 if [ "`md5sum /etc/sudoers`" == "$SUDOERS_CHECKSUM" ] 
   then 
-    sed -i '/# %wheel\tALL=(ALL)\tNOPASSWD: ALL/s/^#//' /etc/sudoers 
+    # removing comment from NOPASSWD line 
     sed -i '/# %wheel\tALL=(ALL)\tNOPASSWD: ALL/s/^# //' /etc/sudoers 
+    # adding comment to no-NOPASSWD line
+    sed -i '/^%wheel\tALL=(ALL)\tALL$/s/^/# /' /etc/sudoers 
     echo "...done." 
   else
     echo "/etc/sudoers is not the expected $SUDOERS_CHECKSUM, exiting." 
