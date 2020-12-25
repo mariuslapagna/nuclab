@@ -28,6 +28,8 @@ if ! `subscription-manager status >/dev/null 2>&1`
 	echo "exiting."
 	exit 1
     fi
+  else
+    echo "Subscription looks good, let's move on..."
 fi
 
 #######################################################################
