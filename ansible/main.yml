@@ -2,4 +2,5 @@
 - hosts: nuclab.fritz.box
   roles:
     - dnsmasq
+    - base_packages
     
