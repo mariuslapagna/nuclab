@@ -38,7 +38,7 @@ echo "Checking if the ansible repo is enabled"
 if ! `subscription-manager repos --list-enabled | grep ansible-2.9-for-rhel-8-x86_64-rpms >/dev/null 2>&1` 
   then
     echo "...it isn't. Trying to enable..."
-    if ! `/usr/bin/subscription-manager repos --enable=ansible-2.9-for-rhel-8-x86_64-rpms`
+    if ! `/usr/bin/subscription-manager repos --enable=ansible-2.9-for-rhel-8-x86_64-rpms >/dev/null 2>&1`
       then
         echo "Enabling Ansible repo failed, exiting" 
         exit 1
