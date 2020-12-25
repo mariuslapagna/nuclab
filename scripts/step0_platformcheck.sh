@@ -29,7 +29,7 @@ if ! `subscription-manager status >/dev/null 2>&1`
 	exit 1
     fi
   else
-    echo "Subscription looks good, let's move on..."
+    echo "...subscription looks good, let's move on..."
 fi
 
 #######################################################################
@@ -63,7 +63,7 @@ if ! `rpm -q ansible >/dev/null 2>&1`
 	echo "...done"
     fi
   else
-    echo "Ansible is already installed."
+    echo "...Ansible is already installed."
 fi
 
 #######################################################################
@@ -83,9 +83,9 @@ if [ "`md5sum /etc/sudoers`" == "$SUDOERS_ORIGINAL_CHECKSUM" ]
     echo "...done." 
   elif [ "`md5sum /etc/sudoers`" == "$SUDOERS_TARGET_CHECKSUM" ] 
     then
-      echo "sudoers seems to be already configured."
+      echo "...sudoers seems to be already configured."
   else
-    echo "/etc/sudoers checksum is not the expected $SUDOERS_CHECKSUM, exiting." 
+    echo "/etc/sudoers checksum isn't any of the expected checksums, exiting." 
     exit 1
 fi 
 
