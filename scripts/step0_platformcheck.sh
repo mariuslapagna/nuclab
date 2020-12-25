@@ -2,6 +2,7 @@
 
 # This script is to set up subscription and install ansible 
 
+#######################################################################
 # We might not have sudoers entries yet, testing for running by root 
 
 if [ `id -u` != 0 ] 
@@ -10,6 +11,7 @@ if [ `id -u` != 0 ]
     exit 1
 fi
 
+#######################################################################
 # Testing subscription setup
 
 echo "Testing subscription status"
@@ -20,6 +22,7 @@ if ! `subscription-manager status >/dev/null 2>&1`
     subscription-manager register --auto-attach
 fi
 
+#######################################################################
 # Ensuring the right repository is available 
 echo "Checking if the ansible repo is enabled" 
 if ! `subscription-manager repos --list-enabled | grep ansible-2.9-for-rhel-8-x86_64-rpms >/dev/null 2>&1` 
@@ -31,19 +34,42 @@ if ! `subscription-manager repos --list-enabled | grep ansible-2.9-for-rhel-8-x8
     fi
 fi
 
+#######################################################################
 # Installing ansible 
 echo "Checking if ansible is installed"
 if ! `rpm -q ansible >/dev/null 2>&1`
   then
     echo "...it isn't, installing..." 
-    if ! `dnf install -y ansible`
+    if ! `dnf install -y -q ansible`
       then
         echo "Installing Ansible failed, exiting" 
         exit 1
+      else 
+	echo "...done"
     fi
   else
     echo "Ansible is already installed."
 fi
+
+#######################################################################
+# Setting sudoers for the wheel group
+echo "Setting sudoers for the wheel group, if sudoers is unchanged" 
+
+# This is calculated from sudo-1.8.29-6.el8.x86_64.rpm
+SUDOERS_CHECKSUM="1b134d95a4618029ff962a63b021e1ca"
+
+if [ `md5sum /etc/sudoers` == "$SUDOERS_CHECKSUM" ] 
+  then 
+    sed -i '/# %wheel\tALL=(ALL)\tNOPASSWD: ALL/s/^#//' /etc/sudoers 
+    sed -i '/# %wheel\tALL=(ALL)\tNOPASSWD: ALL/s/^# //' /etc/sudoers 
+    echo "...done." 
+  else
+    echo "/etc/sudoers is not the expected $SUDOERS_CHECKSUM, exiting." 
+    exit 1
+fi 
+
+#######################################################################
+# if all is good, then...
 
 echo "Ready to rock'n'roll, run your playbooks."
 
