@@ -90,7 +90,20 @@ if [ "`md5sum /etc/sudoers`" == "$SUDOERS_ORIGINAL_CHECKSUM" ]
 fi 
 
 #######################################################################
+# Updating and requesting reboot 
+echo "Updating entire system..." 
+
+if ! `yum update -y -q >/dev/null 2>&1` 
+  then 
+    echo "'yum update -y -q' seemingly went wrong. Please investigate."
+    echo "exiting." 
+    exit 1
+  else 
+    echo "...all good. You should reboot, and create a boom snapshot for fallback now." 
+fi 
+
+#######################################################################
 # if all is good, then...
 
-echo "Ready to rock'n'roll, run your playbooks."
+echo "Ready to rock'n'roll, reboot, [consider the boom boot option] and run your playbooks."
 
