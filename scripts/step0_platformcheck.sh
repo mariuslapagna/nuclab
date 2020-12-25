@@ -45,6 +45,8 @@ if ! `subscription-manager repos --list-enabled | grep ansible-2.9-for-rhel-8-x8
       else
 	echo "...success."
     fi
+  else
+    echo "...repo is enabled, good." 
 fi
 
 #######################################################################
