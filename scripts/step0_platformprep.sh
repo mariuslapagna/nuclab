@@ -1,16 +1,25 @@
 #!/bin/bash 
+# This script is to set up subscription and install ansible and the ansible user
 
-# This script is to set up subscription and install ansible 
+#Choose the name for your ansible user
+ANSIBLE_USER="ansible"
+
+
+echo ""
+echo -e "######################"
+echo -e "# NUCLAB first steps #"
+echo -e "######################\n" 
+
 
 #######################################################################
 # We might not have sudoers entries yet, testing for running by root 
 
 if [ `id -u` != 0 ] 
   then
-    echo "Please run $0 as root, exiting." 
+    echo -e "Please run $0 as root, exiting. \n" 
     exit 1
   else
-    echo "Running as root, good..." 
+    echo -e "Running as root, good... \n" 
 fi
 
 #######################################################################
@@ -29,7 +38,7 @@ if ! `subscription-manager status >/dev/null 2>&1`
 	exit 1
     fi
   else
-    echo "...subscription looks good, let's move on..."
+    echo -e "...subscription looks good, let's move on... \n"
 fi
 
 #######################################################################
@@ -43,10 +52,10 @@ if ! `subscription-manager repos --list-enabled | grep ansible-2.9-for-rhel-8-x8
         echo "Enabling Ansible repo failed, exiting" 
         exit 1
       else
-	echo "...success."
+	echo -e "...success. \n"
     fi
   else
-    echo "...repo is enabled, good." 
+    echo -e "...repo is enabled, good. \n" 
 fi
 
 #######################################################################
@@ -60,10 +69,10 @@ if ! `rpm -q ansible >/dev/null 2>&1`
         echo "Installing Ansible failed, exiting" 
         exit 1
       else 
-	echo "...done"
+	echo -e "...done \n"
     fi
   else
-    echo "...Ansible is already installed."
+    echo -e "...Ansible is already installed. \n"
 fi
 
 #######################################################################
@@ -83,11 +92,28 @@ if [ "`md5sum /etc/sudoers`" == "$SUDOERS_ORIGINAL_CHECKSUM" ]
     echo "...done." 
   elif [ "`md5sum /etc/sudoers`" == "$SUDOERS_TARGET_CHECKSUM" ] 
     then
-      echo "...sudoers seems to be already configured."
+      echo -e "...sudoers seems to be already configured. \n"
   else
     echo "/etc/sudoers checksum isn't any of the expected checksums, exiting." 
     exit 1
 fi 
+
+#######################################################################
+# creating the ansible user
+echo "Checking if ansible user exists"
+if ! `id $ANSIBLE_USER >/dev/null 2>&1`
+  then
+    echo "...it isn't, creating..." 
+    if ! `adduser $ANSIBLE_USER -U -G "wheel"; sudo -i -u $ANSIBLE_USER ssh-keygen -N '' -q -t rsa  <<< ""$'\n'"y" 2>&1 >/dev/null`
+      then
+        echo "Installing Ansible user failed, exiting" 
+        exit 1
+      else 
+	echo -e "...done \n"
+    fi
+  else
+    echo -e "...Ansible user is already existing \n"
+fi
 
 #######################################################################
 # Updating and requesting reboot 
@@ -99,7 +125,7 @@ if ! `yum update -y -q >/dev/null 2>&1`
     echo "exiting." 
     exit 1
   else 
-    echo "...all good. You should reboot, and create a boom snapshot for fallback now." 
+    echo -e "...all good. You should reboot, and create a boom snapshot for fallback now. \n" 
 fi 
 
 #######################################################################
