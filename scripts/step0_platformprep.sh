@@ -104,7 +104,7 @@ echo "Checking if ansible user exists"
 if ! `id $ANSIBLE_USER >/dev/null 2>&1`
   then
     echo "...it isn't, creating..." 
-    if ! `adduser $ANSIBLE_USER -U -G "wheel" && passwd $ANSIBLE_USER  && sudo -i -u $ANSIBLE_USER ssh-keygen -N '' -q -t rsa  <<< ""$'\n'"y" 2>&1 >/dev/null`
+    if ! `adduser $ANSIBLE_USER -U -G "wheel" >/dev/null 2>&1 && passwd $ANSIBLE_USER  && sudo -i -u $ANSIBLE_USER ssh-keygen -N '' -q -t rsa  <<< ""$'\n'"y" >/dev/null 2>&1`
       then
         echo "Installing Ansible user failed, exiting" 
         exit 1
