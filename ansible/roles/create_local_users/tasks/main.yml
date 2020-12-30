@@ -17,13 +17,11 @@
   - name: creating users
     ansible.builtin.user:
       name: "{{ item }}"
-    loop: 
-      - "{{ user_list }}"
+    loop: "{{ user_list }}"
 
   - name: add users to the wheel group
     ansible.builtin.user:
       name: "{{ item }}"
       append: yes
       group: wheel 
-    loop: 
-      - "{{ user_list }}"
+    loop: "{{ user_list }}"
