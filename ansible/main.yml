@@ -1,5 +1,9 @@
 ---
 - hosts: nuclab.fritz.box
+
+  vars_files: 
+    - local_vars/private_repo_url.yml
+
   roles:
     - dnsmasq
     - base_packages

@@ -1,0 +1,9 @@
+---
+# tasks file for create_local_users
+
+- name: getting user_list.yml from private vars repo
+  block: 
+  - name: cloning private repo
+    ansible.builtin.git:
+      repo: "{{ private_repo_url }}"
+      dest: private_repo
