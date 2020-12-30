@@ -100,16 +100,17 @@ fi
 
 #######################################################################
 # creating the ansible user
-echo "Checking if ansible user exists"
+echo "Checking if the user $ANSIBLE_USER exists"
 if ! `id $ANSIBLE_USER >/dev/null 2>&1`
   then
     echo "...it isn't, creating..." 
-    if ! `adduser $ANSIBLE_USER -U -G "wheel" && passwd $ANSIBLE_USER  && sudo -i -u $ANSIBLE_USER ssh-keygen -N '' -q -t rsa  <<< ""$'\n'"y" 2>&1 >/dev/null`
+    if ! `adduser $ANSIBLE_USER -U -G "wheel" >/dev/null 2>&1 && sudo -i -u $ANSIBLE_USER ssh-keygen -N '' -q -t rsa  <<< ""$'\n'"y" >/dev/null 2>&1`
       then
         echo "Installing Ansible user failed, exiting" 
         exit 1
       else 
-	echo -e "...done \n"
+	echo -e "...done. Please set a password for it: \n"
+	passwd $ANSIBLE_USER
     fi
   else
     echo -e "...Ansible user is already existing \n"

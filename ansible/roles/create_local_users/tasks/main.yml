@@ -1,0 +1,34 @@
+---
+# tasks file for create_local_users
+
+- name: getting user_list.yml from private vars repo
+  local_action:
+    module: ansible.builtin.git
+    repo: "{{ private_repo_url }}"
+    dest: private_repo
+    update: yes
+
+- name: including variable cloned 
+  ansible.builtin.include_vars:
+    file: private_repo/vars/user_list.yml
+
+- name: block to create users and add wheel 
+  block:
+  - name: creating users
+    ansible.builtin.user:
+      name: "{{ item }}"
+    loop: "{{ user_list }}"
+
+  - name: add users to the wheel group
+    ansible.builtin.user:
+      name: "{{ item }}"
+      append: yes
+      group: wheel 
+    loop: "{{ user_list }}"
+  become: yes
+
+- name: drop temp dir
+  file:
+    path: private_repo
+    state: absent
+
