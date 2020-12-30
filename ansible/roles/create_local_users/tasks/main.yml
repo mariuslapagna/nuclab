@@ -11,10 +11,17 @@
       update: yes
 
   - name: including variable cloned 
-    include_vars:
+    ansible.builtin.include_vars:
       file: private_repo/vars/user_list.yml
 
-  - debug:
-      var: user_list
+  - name: creating users
+    ansible.builtin.user:
+      name: 
+        - "{{ user_list }}"
 
-
+  - name: add users to the wheel group
+    ansible.builtin.user:
+      name: 
+        - "{{ user_list }}"
+      append: yes
+      group: wheel 
