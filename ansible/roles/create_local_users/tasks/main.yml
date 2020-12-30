@@ -11,7 +11,7 @@
       update: yes
 
   - name: including variable cloned 
-      include_vars:
+    include_vars:
       file: private_repo/vars/user_list.yml
       name: user_list
 
