@@ -13,7 +13,6 @@
   - name: including variable cloned 
     include_vars:
       file: private_repo/vars/user_list.yml
-      name: user_list
 
   - debug:
       var: user_list
