@@ -4,6 +4,8 @@
 - name: getting user_list.yml from private vars repo
   block: 
   - name: cloning private repo
-    ansible.builtin.git:
+    local_action:
+      module: ansible.builtin.git
       repo: "{{ private_repo_url }}"
       dest: private_repo
+
