@@ -23,6 +23,6 @@
   notify: Restart dnsmasq
 
 - template:
-    dest: /etc/hosts 
-    src: hosts.j2
+    dest: /etc/hosts.dnsmasq
+    src: hosts.dnsmasq.j2
   notify: Restart dnsmasq

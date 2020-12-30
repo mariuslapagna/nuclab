@@ -1,6 +1,7 @@
 127.0.0.1   localhost localhost.localdomain localhost4 localhost4.localdomain4
 ::1         localhost localhost.localdomain localhost6 localhost6.localdomain6
 
-{% for host in groups.all %}
-{{ hostvars[host].ipaddress }}	{{ host }}
+{% for fqdn in groups.all %}
+{% set hostname = fqdn.split('.') %}
+{{ hostvars[fqdn].ipaddress }}	{{ hostname[0] }}	{{ fqdn }}
 {% endfor %}

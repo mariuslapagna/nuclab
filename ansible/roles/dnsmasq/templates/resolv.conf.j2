@@ -1,6 +1,2 @@
-{%- for searchdomain in searchdomains %}
-search: {{ searchdomain }}
-{% endfor %}
-{%- for nameserver in nameservers %}
-nameserver {{ nameserver }}
-{% endfor %}
+search: {{ domain }}
+nameserver 127.0.0.1
