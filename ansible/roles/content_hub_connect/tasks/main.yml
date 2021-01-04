@@ -17,12 +17,17 @@
     path: /etc/ansible/ansible.cfg
     block: |
       [galaxy]
-      server_list = automation_hub
+      server_list = automation_hub, community_galaxy
       
       [galaxy_server.automation_hub]
       url=https://cloud.redhat.com/api/automation-hub/
       auth_url=https://sso.redhat.com/auth/realms/redhat-external/protocol/openid-connect/token
       token={{ contenthub_token }}
+       
+      [galaxy_server.community_galaxy]
+      url=https://galaxy.ansible.com/
+
+  become: yes
 
 - name: drop temp dir
   file:
