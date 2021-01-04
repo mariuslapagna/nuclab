@@ -1,5 +1,5 @@
 ---
-- hosts: nuclab.fritz.box
+- hosts: localhost
 
   vars_files: 
     - local_vars/private_repo_url.yml
