@@ -136,7 +136,7 @@ fi
 #######################################################################
 # creating the ansible user
 echo "Cloning the nuclab repository" 
-if ! `rm -rf /home/$ANSIBLE_USER/nuclab && sudo -i -u "$ANSIBLE_USER" git clone "$NUCLAB_REPO"` 
+if ! `rm -rf /home/$ANSIBLE_USER/nuclab && sudo -i -u "$ANSIBLE_USER" git clone "$NUCLAB_REPO" >/dev/null 2>&1` 
   then 
     echo "Cloning the repo failed, pls check." 
     echo "exiting." 
