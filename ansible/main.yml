@@ -5,11 +5,12 @@
     - local_vars/private_repo_url.yml
 
   roles:
-    - role: dnsmasq
-      become: yes
-
     - role: base_packages
       become: yes
 
+    - role: dnsmasq
+      become: yes
+
     - role: create_local_users
-    
+   
+    - role: content_hub_connect
