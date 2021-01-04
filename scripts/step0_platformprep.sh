@@ -142,7 +142,7 @@ if ! `rm -rf /home/$ANSIBLE_USER/nuclab && sudo -i -u "$ANSIBLE_USER" git clone 
     echo "exiting." 
     exit 1
   else
-    echo -e "...done, cloned to /home/$ANSIBLE_USER/nuclab ." 
+    echo -e "...done, cloned to /home/$ANSIBLE_USER/nuclab .\n" 
 fi
 
 #######################################################################
