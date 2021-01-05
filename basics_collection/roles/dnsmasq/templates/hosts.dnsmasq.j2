@@ -1,0 +1,4 @@
+{% for fqdn in groups.all %}
+{% set hostname = fqdn.split('.') %}
+{{ hostvars[fqdn].ipaddress }}	{{ hostname[0] }}	{{ fqdn }}
+{% endfor %}

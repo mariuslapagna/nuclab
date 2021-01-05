@@ -1,0 +1,9 @@
+---
+# vars file for base_packages
+
+base_package_list: 
+  - wget 
+  - vim 
+  - git 
+  - ansible 
+  - mlocate 

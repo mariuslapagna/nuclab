@@ -1,0 +1,29 @@
+
+# tasks file for content_hub_connect
+
+- name: getting contenthub_token.yml from private vars repo
+  local_action:
+    module: ansible.builtin.git
+    repo: "{{ private_repo_url }}"
+    dest: private_repo
+    update: yes
+
+- name: including variable cloned
+  ansible.builtin.include_vars:
+    file: private_repo/vars/contenthub_token.yml
+
+- name: Ensure block for contenthub is included in ansible.cfg 
+  blockinfile:
+    path: /etc/ansible/ansible.cfg
+    block: |
+      [galaxy]
+      server_list = automation_hub, community_galaxy
+      
+      [galaxy_server.automation_hub]
+      url=https://cloud.redhat.com/api/automation-hub/
+      auth_url=https://sso.redhat.com/auth/realms/redhat-external/protocol/openid-connect/token
+      token={{ contenthub_token }}
+       
+      [galaxy_server.community_galaxy]
+      url=https://galaxy.ansible.com/
+  become: yes

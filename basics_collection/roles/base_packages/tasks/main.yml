@@ -1,0 +1,7 @@
+---
+# tasks file for base_packages
+
+- name: install base packages necessary to work
+  yum: 
+    name: "{{ base_package_list }}"
+    state: present
