@@ -1,4 +1,4 @@
----
+
 # tasks file for content_hub_connect
 
 - name: getting contenthub_token.yml from private vars repo
@@ -26,11 +26,4 @@
        
       [galaxy_server.community_galaxy]
       url=https://galaxy.ansible.com/
-
   become: yes
-
-- name: drop temp dir
-  file:
-    path: private_repo
-    state: absent
-

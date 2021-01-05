@@ -27,8 +27,3 @@
     loop: "{{ user_list }}"
   become: yes
 
-- name: drop temp dir
-  file:
-    path: private_repo
-    state: absent
-
