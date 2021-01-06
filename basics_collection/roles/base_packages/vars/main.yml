@@ -5,5 +5,5 @@ base_package_list:
   - wget 
   - vim 
   - git 
-  - ansible 
+  #- ansible installed via pip
   - mlocate 
