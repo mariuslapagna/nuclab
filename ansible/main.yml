@@ -5,15 +5,15 @@
     - local_vars/private_repo_url.yml
 
   roles:
-    - role: base_packages
+    - role: nuclab.basics.base_packages
       become: yes
 
-    - role: dnsmasq
+    - role: nuclab.basics.dnsmasq
       become: yes
 
-    - role: create_local_users
+    - role: nuclab.basics.create_local_users
    
-    - role: content_hub_connect
+    - role: nuclab.basics.content_hub_connect
 
     # for the nfs_server role, see: https://github.com/oasis-roles/ansible_collection_system/tree/master/roles/nfs_server
     - role: oasis_roles.system.nfs_server

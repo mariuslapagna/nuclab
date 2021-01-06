@@ -43,28 +43,62 @@ fi
 
 #######################################################################
 # Ensuring the right repository is available 
-echo "Checking if the ansible repo is enabled" 
-if ! `subscription-manager repos --list-enabled | grep ansible-2.9-for-rhel-8-x86_64-rpms >/dev/null 2>&1` 
+#echo "Checking if the ansible repo is enabled" 
+#if ! `subscription-manager repos --list-enabled | grep ansible-2.9-for-rhel-8-x86_64-rpms >/dev/null 2>&1` 
+#  then
+#    echo "...it isn't. Trying to enable..."
+#    if ! `/usr/bin/subscription-manager repos --enable=ansible-2.9-for-rhel-8-x86_64-rpms >/dev/null 2>&1`
+#      then
+#        echo "Enabling Ansible repo failed, exiting" 
+#        exit 1
+#      else
+#	echo -e "...success. \n"
+#    fi
+#  else
+#    echo -e "...repo is enabled, good. \n" 
+#fi
+
+#######################################################################
+# Installing ansible 
+#echo "Checking if ansible is installed"
+#if ! `rpm -q ansible >/dev/null 2>&1`
+#  then
+#    echo "...it isn't, installing..." 
+#    if ! `dnf install -y -q ansible`
+#      then
+#        echo "Installing Ansible failed, exiting" 
+#        exit 1
+#      else 
+#	echo -e "...done \n"
+#    fi
+#  else
+#    echo -e "...Ansible is already installed. \n"
+#fi
+
+#######################################################################
+# Installing pip 
+echo "Checking if pip is installed"
+if ! `rpm -q python38-pip >/dev/null 2>&1`
   then
-    echo "...it isn't. Trying to enable..."
-    if ! `/usr/bin/subscription-manager repos --enable=ansible-2.9-for-rhel-8-x86_64-rpms >/dev/null 2>&1`
+    echo "...it isn't, installing..." 
+    if ! `dnf install -y -q python38-pip && sudo alternatives --install /usr/bin/pip pip /usr/bin/pip3.8 1`
       then
-        echo "Enabling Ansible repo failed, exiting" 
+        echo "Installing pip failed, exiting" 
         exit 1
-      else
-	echo -e "...success. \n"
+      else 
+	echo -e "...done \n"
     fi
   else
-    echo -e "...repo is enabled, good. \n" 
+    echo -e "...pip is already installed. \n"
 fi
 
 #######################################################################
 # Installing ansible 
 echo "Checking if ansible is installed"
-if ! `rpm -q ansible >/dev/null 2>&1`
+if ! `which ansible >/dev/null 2>&1`
   then
     echo "...it isn't, installing..." 
-    if ! `dnf install -y -q ansible`
+    if ! `pip install ansible >/dev/null 2>&1`
       then
         echo "Installing Ansible failed, exiting" 
         exit 1
@@ -74,6 +108,8 @@ if ! `rpm -q ansible >/dev/null 2>&1`
   else
     echo -e "...Ansible is already installed. \n"
 fi
+
+
 
 #######################################################################
 # Setting sudoers for the wheel group
