@@ -7,7 +7,7 @@
   roles:
     - role: nuclab.basics.base_packages
       become: yes
-
+    
     - role: nuclab.basics.dnsmasq
       become: yes
 

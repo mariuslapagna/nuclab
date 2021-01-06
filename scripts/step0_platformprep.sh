@@ -76,12 +76,12 @@ fi
 #fi
 
 #######################################################################
-# Installing pip 
+# Installing pip and other python stuff 
 echo "Checking if pip is installed"
 if ! `rpm -q python38-pip >/dev/null 2>&1`
   then
     echo "...it isn't, installing..." 
-    if ! `dnf install -y -q python38-pip && sudo alternatives --install /usr/bin/pip pip /usr/bin/pip3.8 1`
+    if ! `dnf install -y -q python38-pip python3-dnf && alternatives --install /usr/bin/pip pip /usr/bin/pip3.8 1`
       then
         echo "Installing pip failed, exiting" 
         exit 1
