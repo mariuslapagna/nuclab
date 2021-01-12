@@ -4,15 +4,15 @@
     - local_vars/private_repo_url.yml
 
   roles:
-    - role: nuclab.basics.base_packages
+    - role: base_packages
       become: yes
     
-    - role: nuclab.basics.dnsmasq
+    - role: dnsmasq
       become: yes
 
-    - role: nuclab.basics.create_local_users
+    - role: create_local_users
    
-    - role: nuclab.basics.content_hub_connect
+    - role: content_hub_connect
 
     - role: oasis_roles.system.nfs_server
       nfs_server_shares:

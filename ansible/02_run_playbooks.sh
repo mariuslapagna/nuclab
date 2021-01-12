@@ -1,0 +1,1 @@
+ansible-playbook -i hosts.yml main.yml --vault-password-file=~/.ansible/vaultpw.txt

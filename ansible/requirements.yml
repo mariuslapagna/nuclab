@@ -1,7 +1,10 @@
 collections:
-  - name: https://github.com/mariuslapagna/nuclab.git
-    type: git
+  #- name: https://github.com/mariuslapagna/nuclab.git
+  # type: git
 
   # for the nfs_server role, see: https://github.com/oasis-roles/ansible_collection_system/tree/master/roles/nfs_server
-  - name: https://github.com/oasis-roles/ansible_collection_system
-    type: git
+  - name: oasis_roles.system
+
+  # https://cloud.redhat.com/ansible/automation-hub/repo/published/redhat/rhv
+  - name: redhat.rhv
+
