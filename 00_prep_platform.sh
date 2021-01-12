@@ -190,9 +190,9 @@ if ! `id $ANSIBLE_USER >/dev/null 2>&1`
     echo -e ".. user $ANSIBLE_USER is already existing\n"
 
     echo "fetching newest version of repo"
-    if ! `sudo -i -u "$ANSIBLE_USER" cd /home/$ANSIBLE_USER/nuclab && git fetch` 
+    if ! `sudo -i -u "$ANSIBLE_USER" cd /home/$ANSIBLE_USER/nuclab && git pull` 
       then 
-        echo "git fetch in /home/$ANSIBLE_USER/nuclab went wrong, fix it"
+        echo "git pull in /home/$ANSIBLE_USER/nuclab went wrong, fix it"
         echo "exiting." 
         exit 1
       else 
