@@ -11,12 +11,14 @@ then
   ANSIBLE_USER="$1"
 fi
 
-
-
 echo ""
-echo -e "######################"
-echo -e "# NUCLAB first steps #"
-echo -e "######################\n" 
+echo "                   _       _     "
+echo "                  | |     | |    "
+echo "  _ __  _   _  ___| | __ _| |__  "
+echo " | '_ \| | | |/ __| |/ _\` | '_ \ "
+echo " | | | | |_| | (__| | (_| | |_) |"
+echo " |_| |_|\__,_|\___|_|\__,_|_.__/ "
+echo -e "\n\n"
 
 
 #######################################################################
@@ -27,8 +29,9 @@ if [ `id -u` != 0 ]
     echo -e "Please run $0 as root, exiting. \n" 
     exit 1
   else
-    echo -e "Running as root, good... \n" 
-    echo -e "user to setup is: \"$ANSIBLE_USER\""
+    echo -e "First steps"
+    echo -e "...running as root, good. \n" 
+    echo -e "User to setup is: \"$ANSIBLE_USER\""
     echo -e "...to exit press control+c within the next seconds :)\n" 
 fi
 
@@ -187,16 +190,16 @@ if ! `id $ANSIBLE_USER >/dev/null 2>&1`
           fi
     fi
   else
-    echo -e ".. user $ANSIBLE_USER is already existing\n"
+    echo -e "...user $ANSIBLE_USER is already existing.\n"
 
-    echo "fetching newest version of repo"
-    if ! `sudo -i -u "$ANSIBLE_USER" cd /home/$ANSIBLE_USER/nuclab && git fetch` 
+    echo "pulling newest version of repo"
+    if ! `sudo -i -u "$ANSIBLE_USER" cd /home/$ANSIBLE_USER/nuclab && git pull --no-rebase >/dev/null 2>&1` 
       then 
-        echo "git fetch in /home/$ANSIBLE_USER/nuclab went wrong, fix it"
+        echo "git pull --no-rebase in /home/$ANSIBLE_USER/nuclab went wrong, fix it"
         echo "exiting." 
         exit 1
       else 
-        echo -e "...all good.\n"
+        echo -e "...everything up to date.\n"
     fi  
 fi
 
@@ -204,13 +207,13 @@ fi
 # Updating requirements
 echo "Updating ansible requirements.." 
 
-if ! `sudo rm -r /home/$ANSIBLE_USER/.ansible/collections/ansible_collections/* >/dev/null 2>&1;sudo -i -u "$ANSIBLE_USER"  ansible-galaxy  collection install -r /home/$ANSIBLE_USER/nuclab/ansible_nuclab_basics/requirements.yml >/dev/null 2>&1` 
+if ! `sudo rm -r /home/$ANSIBLE_USER/.ansible/collections/ansible_collections/* >/dev/null 2>&1 ;sudo -i -u "$ANSIBLE_USER"  ansible-galaxy  collection install -r /home/$ANSIBLE_USER/nuclab/ansible_nuclab_basics/requirements.yml >/dev/null 2>&1` 
   then 
     echo "ansible-galaxy  collection install -r ansible_nuclab_basics/requirements.yml went wrong. Please investigate."
     echo "exiting." 
     exit 1
   else 
-    echo -e "...all good.\n"
+    echo -e "...ansible requirements updated.\n"
 fi 
 
 
@@ -224,13 +227,13 @@ if ! `yum update -y -q >/dev/null 2>&1`
     echo "exiting." 
     exit 1
   else 
-    echo -e "...all good.\n"
+    echo -e "...everything updated.\n"
 fi 
 
 #######################################################################
 # if all is good, then...
 
 
-echo "If this is a fresh install; reboot, consider the boom boot option and run your playbooks."
-echo -e "...ready to rock'n'roll \n"
+echo "If this is a fresh install - reboot, consider the boom boot option and run your playbooks."
+echo -e "...however, ready to rock'n'roll \n"
 
