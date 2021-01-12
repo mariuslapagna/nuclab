@@ -204,7 +204,7 @@ fi
 # Updating requirements
 echo "Updating ansible requirements.." 
 
-if ! `sudo rm -r /home/$ANSIBLE_USER/.ansible/collections/ansible_collections/* >/dev/null 2>&1;sudo -i -u "$ANSIBLE_USER"  ansible-galaxy  collection install -r /home/$ANSIBLE_USER/nuclab/ansible_nuclab_basics/requirements.yml >/dev/null 2>&1` 
+if ! `sudo rm -r /home/$ANSIBLE_USER/.ansible/collections/ansible_collections/* >/dev/null 2>&1 ;sudo -i -u "$ANSIBLE_USER"  ansible-galaxy  collection install -r /home/$ANSIBLE_USER/nuclab/ansible_nuclab_basics/requirements.yml ` 
   then 
     echo "ansible-galaxy  collection install -r ansible_nuclab_basics/requirements.yml went wrong. Please investigate."
     echo "exiting." 
