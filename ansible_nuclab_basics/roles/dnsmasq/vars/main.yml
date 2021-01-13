@@ -1,6 +1,1 @@
 ---
-# vars file for dnsmasq
-domain: 'nuclab.network'
-relay_nameservers:
-  - '8.8.8.8'
-  - '8.8.9.9'

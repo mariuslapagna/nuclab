@@ -1,19 +1,18 @@
 ---
 - hosts: host0.nuclab.network
+  become: yes
+
   vars_files: 
-    - local_vars/private_repo_url.yml
+    - custom_vars/user_list.yml
+    - custom_vars/network.yml
+    - custom_vars/rh_secrets.yml
+    - custom_vars/contenthub_token.yml
 
   roles:
     - role: base_packages
-      become: yes
-    
-    - role: dnsmasq
-      become: yes
-
     - role: create_local_users
-   
+    - role: dnsmasq
     - role: content_hub_connect
-
     - role: oasis_roles.system.nfs_server
       nfs_server_shares:
         - share_path: /opt/nuclab/rhv_nfs
@@ -24,4 +23,9 @@
           mode: '0775'
       nfs_server_services:
         - nfs-server
-        - rpcbind 
+        - rpcbind
+    - role: redhat.rhv.repositories
+      become: yes
+      ovirt_repositories_use_subscription_manager: True
+    #- role: redhat.rhv.hosted_engine_setup
+    #  become: yes

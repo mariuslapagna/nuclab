@@ -1,17 +1,5 @@
-
+---
 # tasks file for content_hub_connect
-
-- name: getting contenthub_token.yml from private vars repo
-  local_action:
-    module: ansible.builtin.git
-    repo: "{{ private_repo_url }}"
-    dest: private_repo
-    update: yes
-
-- name: including variable cloned
-  ansible.builtin.include_vars:
-    file: private_repo/vars/contenthub_token.yml
-
 - name: Ensure block for contenthub is included in ansible.cfg 
   blockinfile:
     path: /etc/ansible/ansible.cfg

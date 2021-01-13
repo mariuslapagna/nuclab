@@ -11,4 +11,4 @@ echo " |_| |_|\__,_|\___|_|\__,_|_.__/ "
 echo -e "\n\n"
 
 ANSIBLE_RUNDIR=`echo ~/nuclab/ansible_nuclab_basics`
-cd $ANSIBLE_RUNDIR && ansible-playbook -i hosts.yml main.yml --vault-password-file=~/.ansible/vaultpw.txt
+cd $ANSIBLE_RUNDIR && ansible-playbook -i custom_vars/hosts.yml main.yml --vault-password-file=~/.ansible/vaultpw.txt
