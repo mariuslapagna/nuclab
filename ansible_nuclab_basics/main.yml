@@ -7,6 +7,7 @@
     - custom_vars/network.yml
     - custom_vars/rh_secrets.yml
     - custom_vars/contenthub_token.yml
+    - custom_vars/rhv_secrets.yml
 
   roles:
     - role: base_packages
@@ -25,7 +26,9 @@
         - nfs-server
         - rpcbind
     - role: redhat.rhv.repositories
-      become: yes
       ovirt_repositories_use_subscription_manager: True
-    #- role: redhat.rhv.hosted_engine_setup
-    #  become: yes
+    - role: redhat.rhv.hosted_engine_setup
+      he_fqdn: rhvm0.nuclab.network
+      he_domain_type: nfs
+      he_storage_domain_addr: localhost
+      he_storage_domain_path: /opt/nuclab/rhv_nfs
