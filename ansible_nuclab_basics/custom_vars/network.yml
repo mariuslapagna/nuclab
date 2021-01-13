@@ -3,3 +3,7 @@ domain: 'nuclab.network'
 relay_nameservers:
   - '8.8.8.8'
   - '8.8.9.9'
+
+
+#set interface for virtualisation bridge
+he_bridge_if: eno1

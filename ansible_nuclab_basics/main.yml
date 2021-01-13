@@ -32,3 +32,4 @@
       he_domain_type: nfs
       he_storage_domain_addr: localhost
       he_storage_domain_path: /opt/nuclab/rhv_nfs
+

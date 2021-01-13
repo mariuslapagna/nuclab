@@ -6,4 +6,7 @@ base_package_list:
   - vim 
   - git 
   - ansible 
-  - mlocate 
+  - mlocate
+  - abrt #workaround needed for rhv
+  - libvirt-lock-sanlock #workaround needed for rhv
+  - abrt-addon-vmcore
